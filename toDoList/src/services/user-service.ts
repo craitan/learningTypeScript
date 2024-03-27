@@ -11,9 +11,7 @@ export const createUser = (username: string, firstName: string, lastName: string
         uid,
         email,
         createdOn: new Date().toString(),
-        likedPosts: {},
-        isAdmin: false,
-        isBlocked: false,
+
     })
 
 };
@@ -23,6 +21,10 @@ export const getUserData = (uid: string) => {
 }
 
 
-export const getUserByUserName = async (username: string) => {
-    return get(ref(db, `users/${username}`));
+
+export const getUserByUserName = (username: string, callback: (snapshot: any) => void) => {
+    const userRef = ref(db, `users/${username}`);
+    onValue(userRef, (snapshot) => {
+        callback(snapshot.val());
+    });
 };

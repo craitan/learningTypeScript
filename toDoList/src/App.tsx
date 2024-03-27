@@ -6,6 +6,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AppContext from './context/AppContext';
 import { getUserData } from './services/user-service';
 import Register from './views/Register';
+import LogIn from './views/LogIn';
+
 
 
 function App() {
@@ -36,6 +38,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path='/register' element={<Register />} />
+            <Route path='/login' element={<LogIn />} />
           </Routes>
         </AppContext.Provider>
       </BrowserRouter>

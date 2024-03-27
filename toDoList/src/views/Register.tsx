@@ -4,13 +4,13 @@ import { createUser } from "../services/user-service";
 import { registerUser } from "../services/auth-service";
 
 
+interface FireBaseError {
+    message: string;
+}
+
 const Register = () => {
 
     const navigate = useNavigate();
-
-    interface FireBaseError {
-        message: string;
-    }
 
     const [form, setForm] = useState({
         username: '',
