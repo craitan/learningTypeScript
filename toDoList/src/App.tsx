@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AppContext from './context/AppContext';
 import { getUserData } from './services/user-service';
 
+
 function App() {
 
   const [context, setContext] = useState<{ user: object | null, userData: object | null }>({
@@ -15,15 +16,17 @@ function App() {
   const [user] = useAuthState(auth);
 
   useEffect(() => {
-    if (user) {
-      getUserData(user.uid)
-        .then(snapshot => {
+      if (user) {
+        getUserData(user.uid).then((snapshot) => {
           if (snapshot.exists()) {
-            setContext({ user, userData: snapshot.val()[Object.keys(snapshot.val())[0]] });
+            setContext({
+              user,
+              userData: snapshot.val()[Object.keys(snapshot.val())[0]],
+            });
           }
-        })
-    }
-  }, [user]);
+        });
+      }
+    }, [user]);
 
   return (
     <>

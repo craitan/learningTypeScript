@@ -1,8 +1,8 @@
-import { get, set, ref, query, equalTo, orderByChild, update } from 'firebase/database';
+import { set, ref, query, equalTo, orderByChild, onValue, get } from 'firebase/database';
 import { db } from '../config/firebase-config';
 
 
-export const createUserUserName = (username, firstName, lastName, uid, email,) => {
+export const createUser = (username: string, firstName: string, lastName: string, uid: string, email: string) => {
 
     return set(ref(db, `users/${username}`), {
         username,
@@ -18,8 +18,6 @@ export const createUserUserName = (username, firstName, lastName, uid, email,) =
 
 };
 
-
-export const getUserData = (uid) => {
-
+export const getUserData = (uid: string) => {
     return get(query(ref(db, 'users'), orderByChild('uid'), equalTo(uid)));
-};
+}
