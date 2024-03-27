@@ -8,7 +8,7 @@ import { getUserData } from './services/user-service';
 
 function App() {
 
-  const [context, setContext] = useState({
+  const [context, setContext] = useState<{ user: object | null, userData: object | null }>({
     user: null,
     userData: null,
   });
