@@ -21,3 +21,8 @@ export const createUser = (username: string, firstName: string, lastName: string
 export const getUserData = (uid: string) => {
     return get(query(ref(db, 'users'), orderByChild('uid'), equalTo(uid)));
 }
+
+
+export const getUserByUserName = async (username: string) => {
+    return get(ref(db, `users/${username}`));
+};

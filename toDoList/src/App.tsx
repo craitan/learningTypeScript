@@ -5,6 +5,7 @@ import Home from './components/Home';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AppContext from './context/AppContext';
 import { getUserData } from './services/user-service';
+import Register from './views/Register';
 
 
 function App() {
@@ -16,17 +17,17 @@ function App() {
   const [user] = useAuthState(auth);
 
   useEffect(() => {
-      if (user) {
-        getUserData(user.uid).then((snapshot) => {
-          if (snapshot.exists()) {
-            setContext({
-              user,
-              userData: snapshot.val()[Object.keys(snapshot.val())[0]],
-            });
-          }
-        });
-      }
-    }, [user]);
+    if (user) {
+      getUserData(user.uid).then((snapshot) => {
+        if (snapshot.exists()) {
+          setContext({
+            user,
+            userData: snapshot.val()[Object.keys(snapshot.val())[0]],
+          });
+        }
+      });
+    }
+  }, [user]);
 
   return (
     <>
@@ -34,6 +35,7 @@ function App() {
         <AppContext.Provider value={{ ...context, setContext }}>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path='/register' element={<Register />} />
           </Routes>
         </AppContext.Provider>
       </BrowserRouter>
