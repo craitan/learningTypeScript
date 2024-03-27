@@ -5,7 +5,7 @@ import { getStorage } from "firebase/storage";
 import { useState, useEffect } from "react";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCr5Ivmnob3_S0zf23Q6IGQuO2qYDOycvc",
+    apiKey: import.meta.env.VITE_API_KEY,
     authDomain: "todolist-237bb.firebaseapp.com",
     databaseURL: "https://todolist-237bb-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "todolist-237bb",
