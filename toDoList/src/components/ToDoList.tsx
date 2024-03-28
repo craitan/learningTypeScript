@@ -1,6 +1,6 @@
 type ToDoListProps = {
     userData: {
-        name: string;
+        username: string;
         email: string;
         uid: string;
         firstName: string;

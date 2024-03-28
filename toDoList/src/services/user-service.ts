@@ -1,4 +1,4 @@
-import { set, ref, query, equalTo, orderByChild, onValue, get } from 'firebase/database';
+import { set, ref, query, equalTo, push, orderByChild, onValue, get } from 'firebase/database';
 import { db } from '../config/firebase-config';
 
 
@@ -28,10 +28,10 @@ export const getUserByUserName = (username: string, callback: (snapshot: any) =>
     });
 };
 
-export const addTask = (username: string, taskName: string, taskContent: string, taskEnd: Date, important: boolean) => {
-    const taskRef = ref(db, `users/${username}/toDo`);
+export const addTask = (username: string, taskName: string, taskContent: string, taskEnd: string, important: boolean) => {
+    const tasksRef = ref(db, `users/${username}/toDo`);
 
-    return set(taskRef, {
+    return push(tasksRef, {
         taskName,
         taskContent,
         taskStart: new Date().toString(),
@@ -39,5 +39,4 @@ export const addTask = (username: string, taskName: string, taskContent: string,
         done: false,
         important,
     });
-
 };

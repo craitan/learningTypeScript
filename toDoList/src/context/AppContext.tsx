@@ -4,7 +4,7 @@ type AppContextType = {
   user: object | null,
 
   userData: {
-    name: string;
+    username: string;
     email: string;
     uid: string;
     firstName: string;
