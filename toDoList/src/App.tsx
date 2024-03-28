@@ -7,6 +7,7 @@ import AppContext from './context/AppContext';
 import { getUserData } from './services/user-service';
 import Register from './views/Register';
 import LogIn from './views/LogIn';
+import NavBar from './components/NavBar';
 
 
 
@@ -35,6 +36,7 @@ function App() {
     <>
       <BrowserRouter>
         <AppContext.Provider value={{ ...context, setContext }}>
+          <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path='/register' element={<Register />} />
