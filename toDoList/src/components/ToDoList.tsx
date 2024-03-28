@@ -13,13 +13,26 @@ type ToDoListProps = {
 
 const ToDoList = ({ userData }: ToDoListProps) => {
 
-    console.log(userData)
+    
     return (
-        <div>
-            <h1>ToDoList</h1>
+        <div className="flex justify-between mt-5">
+            <div className="border">
+                <h1 className="text-2xl">To Do List</h1>
+                <div>
+                    List of the tasks you need to do
+                </div>
+            </div>
+
+            <div className="border">
+                <h1 className="text-2xl">Done List </h1>
+                <div>
+                    List of the tasks you have done
+                </div>
+            </div>
+
         </div>
     );
-    
+
 };
 
 
