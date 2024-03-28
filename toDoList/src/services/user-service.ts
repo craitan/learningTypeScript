@@ -11,7 +11,8 @@ export const createUser = (username: string, firstName: string, lastName: string
         uid,
         email,
         createdOn: new Date().toString(),
-
+        toDo: {},
+        done: {}
     })
 
 };
@@ -20,11 +21,23 @@ export const getUserData = (uid: string) => {
     return get(query(ref(db, 'users'), orderByChild('uid'), equalTo(uid)));
 }
 
-
-
 export const getUserByUserName = (username: string, callback: (snapshot: any) => void) => {
     const userRef = ref(db, `users/${username}`);
     onValue(userRef, (snapshot) => {
         callback(snapshot.val());
     });
+};
+
+export const addTask = (username: string, taskName: string, taskContent: string, taskEnd: Date, important: boolean) => {
+    const taskRef = ref(db, `users/${username}/toDo`);
+
+    return set(taskRef, {
+        taskName,
+        taskContent,
+        taskStart: new Date().toString(),
+        taskEnd,
+        done: false,
+        important,
+    });
+
 };

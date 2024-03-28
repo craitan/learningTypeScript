@@ -18,16 +18,16 @@ const NavBar = () => {
     return (
         <div className="navbar bg-base-100 shadow shadow-white justify-between">
             <div className="navbar-start">
-                <a className="btn btn-ghost text-xl">daisyUI</a>
+                <a className="btn btn-ghost text-xl">ToDo List</a>
             </div>
             <div id="log-in-log-out" className="">
                 {user ? (
                     <div className="">
-                        <button className="btn btn-secondary" onClick={handleLogout}>Log Out</button>
+                        <button className="btn btn-secondary" onClick={handleLogout}>Sign Out</button>
                     </div>
                 ) : (
                     <div className="mr-5">
-                        <button className="btn btn-accent" onClick={() => navigate('/login')}>Log In</button>
+                        <button className="btn btn-accent" onClick={() => navigate('/login')}>Sign In</button>
                     </div>)
                 }
             </div>

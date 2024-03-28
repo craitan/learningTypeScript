@@ -2,13 +2,17 @@ import { createContext } from "react";
 
 type AppContextType = {
   user: object | null,
-  userData: {
-    username: string,
-    email: string,
-    uid: string,
-    tasks: object
 
+  userData: {
+    name: string;
+    email: string;
+    uid: string;
+    firstName: string;
+    lastName: string;
+    toDo: object;
+    done: object;
   } | null,
+  
   setContext: React.Dispatch<React.SetStateAction<{ user: object | null, userData: object | null }>>
 };
 
