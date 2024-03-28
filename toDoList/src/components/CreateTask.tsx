@@ -2,9 +2,14 @@ import { useContext, useState } from "react";
 import { addTask } from "../services/user-service";
 import AppContext from "../context/AppContext";
 
-const CreateTask = () => {
+type CreateTaskProps = {
+    toggleCreateMode: () => void;
 
-    const {userData} = useContext(AppContext)
+}
+
+const CreateTask = ({ toggleCreateMode }: CreateTaskProps) => {
+
+    const { userData } = useContext(AppContext)
 
     const [taskForm, setTaskForm] = useState({
         taskName: '',
@@ -23,13 +28,20 @@ const CreateTask = () => {
     }
 
 
-    const handleCreateTask = () => { 
+    const handleCreateTask = () => {
         if (!userData) {
             console.error('User data is not available');
             return;
         }
 
         addTask(userData.username, taskForm.taskName, taskForm.taskContent, taskForm.taskEnd, taskForm.important)
+
+        setTaskForm({
+            taskName: '',
+            taskContent: '',
+            taskEnd: '',
+            important: false
+        })
     }
 
     return (
@@ -60,8 +72,9 @@ const CreateTask = () => {
                     </div>
                 </div>
 
-                <div className="mt-10">
+                <div className="mt-10 flex justify-between">
                     <button className="btn btn-primary" onClick={handleCreateTask} >Create Task</button>
+                    <button className="btn btn-secondary" onClick={toggleCreateMode} >Cancel</button>
                 </div>
             </div>
         </div>

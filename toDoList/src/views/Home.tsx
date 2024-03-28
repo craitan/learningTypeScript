@@ -4,29 +4,21 @@ import ToDoList from "../components/ToDoList";
 import CreateTask from "../components/CreateTask";
 
 const Home = () => {
-
-
     const { userData } = useContext(AppContext)
-
     const [createMode, setCreateMode] = useState(false)
 
-    console.log(createMode)
-
+    const toggleCreateMode = () => setCreateMode(!createMode)
 
     return (
         <div className="flex flex-col">
             <div>
-                <button className="btn btn-primary" onClick={() => setCreateMode(!createMode)}>Create Task</button>
+                <button className="btn btn-primary" onClick={toggleCreateMode}>Create Task</button>
             </div>
-            {createMode && <CreateTask />}
-            
-            <div>
-                <ToDoList userData={userData} />
-            </div>
+            {createMode && <CreateTask toggleCreateMode={toggleCreateMode} />}
 
+            <ToDoList userData={userData} />
         </div>
     );
 };
-
 
 export default Home;
