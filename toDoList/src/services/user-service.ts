@@ -40,3 +40,12 @@ export const addTask = (username: string, taskName: string, taskContent: string,
         important,
     });
 };
+
+export const watchUserTasks = (username: string, callback: (tasks: any[]) => void) => {
+    const tasksRef = ref(db, `users/${username}/toDo`);
+    onValue(tasksRef, (snapshot) => {
+        const tasks = snapshot.val();
+        const tasksList = Object.keys(tasks).map(key => ({...tasks[key], id: key}));
+        callback(tasksList);
+    });
+};

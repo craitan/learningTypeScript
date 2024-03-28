@@ -23,9 +23,6 @@ const CreateTask = () => {
     }
 
 
-    console.log(taskForm)
-    
-
     const handleCreateTask = () => { 
         if (!userData) {
             console.error('User data is not available');
