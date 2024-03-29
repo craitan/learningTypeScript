@@ -1,4 +1,4 @@
-import { set, ref, query, equalTo, push, orderByChild, onValue, get } from 'firebase/database';
+import { set, ref, query, equalTo, push, orderByChild, onValue, get, remove } from 'firebase/database';
 import { db } from '../config/firebase-config';
 
 
@@ -45,7 +45,29 @@ export const watchUserTasks = (username: string, callback: (tasks: any[]) => voi
     const tasksRef = ref(db, `users/${username}/toDo`);
     onValue(tasksRef, (snapshot) => {
         const tasks = snapshot.val();
-        const tasksList = Object.keys(tasks).map(key => ({...tasks[key], id: key}));
+        const tasksList = Object.keys(tasks || {}).map(key => ({ ...tasks[key], id: key }));
         callback(tasksList);
+    });
+};
+
+
+export const watchUserDoneTasks = (username: string, callback: (tasks: any[]) => void) => {
+    const tasksRef = ref(db, `users/${username}/done`);
+    onValue(tasksRef, (snapshot) => {
+        const tasks = snapshot.val();
+        const tasksList = Object.keys(tasks || {}).map(key => ({ ...tasks[key], id: key }));
+        callback(tasksList);
+    });
+}
+
+
+export const markAsDone = (username: string, taskId: string) => {
+    const doneTaskRef = ref(db, `users/${username}/done`);
+    const toDoTaskRef = ref(db, `users/${username}/toDo/${taskId}`);
+
+    get(toDoTaskRef).then((snapshot) => {
+        const task = snapshot.val();
+        push(doneTaskRef, task);
+        remove(toDoTaskRef);
     });
 };

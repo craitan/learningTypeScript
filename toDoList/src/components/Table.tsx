@@ -5,10 +5,11 @@ type TableProps = {
         taskEnd: string;
     }[];
     button: string;
+    handleTaskFunction: (id: string) => void;
 };
 
 
-const Table = ({ listOfTasks, button }: TableProps) => {
+const Table = ({ listOfTasks, button, handleTaskFunction }: TableProps) => {
 
     return (
         <div className="overflow-x-auto">
@@ -42,7 +43,7 @@ const Table = ({ listOfTasks, button }: TableProps) => {
                             </td>
                             <td>{task.taskEnd}</td>
                             <td>
-                                <button className="btn btn-sm">{button}</button>
+                                <button className="btn btn-sm" onClick={() => handleTaskFunction(task.id)}>{button}</button>
                             </td>
                         </tr>
                     ))}
