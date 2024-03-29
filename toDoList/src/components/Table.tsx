@@ -1,5 +1,6 @@
 type TableProps = {
     listOfTasks: {
+        id: string;
         taskName: string;
         taskContent: string;
         taskEnd: string;
@@ -7,7 +8,6 @@ type TableProps = {
     button: string;
     handleTaskFunction: (id: string) => void;
 };
-
 
 const Table = ({ listOfTasks, button, handleTaskFunction }: TableProps) => {
 
@@ -42,9 +42,13 @@ const Table = ({ listOfTasks, button, handleTaskFunction }: TableProps) => {
                                 </div>
                             </td>
                             <td>{task.taskEnd}</td>
-                            <td>
-                                <button className="btn btn-sm" onClick={() => handleTaskFunction(task.id)}>{button}</button>
-                            </td>
+                            {new Date(task.taskEnd).getTime() <= new Date().getTime() ? (<td>
+                                <button className="btn btn-sm btn-error" onClick={() => handleTaskFunction(task.id)}>{button}</button>
+                            </td>) : (
+                                <td>
+                                    <button className="btn btn-sm" onClick={() => handleTaskFunction(task.id)}>{button}</button>
+                                </td>
+                            )}
                         </tr>
                     ))}
                 </tbody>

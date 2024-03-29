@@ -63,11 +63,7 @@ const ToDoList = ({ userData }: ToDoListProps) => {
         deleteTask(userData?.username, id);
     };
 
-
-
-
-
-    console.log(toDoTasks);
+    
     return (
         <div className="flex w-full justify-center mt-5">
             <div className="border rounded-xl mx-5 w-1/2" id="to-do-tasks">
@@ -94,7 +90,7 @@ const ToDoList = ({ userData }: ToDoListProps) => {
                     {toDoTasks.length === 0 ? (
                         <p className="text-center text-xl mt-5">No tasks available</p>
                     ) : (
-                        <Table listOfTasks={doneTasks} button="Done" handleTaskFunction={handleDeleteTask} />
+                        <Table listOfTasks={doneTasks} button="Remove" handleTaskFunction={handleDeleteTask} />
                     )}
                 </div>
             </div>

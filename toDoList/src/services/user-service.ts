@@ -46,6 +46,21 @@ export const watchUserTasks = (username: string, callback: (tasks: any[]) => voi
     onValue(tasksRef, (snapshot) => {
         const tasks = snapshot.val();
         const tasksList = Object.keys(tasks || {}).map(key => ({ ...tasks[key], id: key }));
+
+        
+        tasksList.sort((a, b) => {
+            
+            if (a.important && !b.important) {
+                return -1;
+            }
+            if (!a.important && b.important) {
+                return 1;
+            }
+
+            
+            return new Date(a.taskEnd).getTime() - new Date(b.taskEnd).getTime();
+        });
+
         callback(tasksList);
     });
 };
