@@ -4,7 +4,6 @@ import AppContext from "../context/AppContext";
 
 type CreateTaskProps = {
     toggleCreateMode: () => void;
-
 }
 
 const CreateTask = ({ toggleCreateMode }: CreateTaskProps) => {
