@@ -47,17 +47,14 @@ export const watchUserTasks = (username: string, callback: (tasks: any[]) => voi
         const tasks = snapshot.val();
         const tasksList = Object.keys(tasks || {}).map(key => ({ ...tasks[key], id: key }));
 
-        
         tasksList.sort((a, b) => {
-            
+
             if (a.important && !b.important) {
                 return -1;
             }
             if (!a.important && b.important) {
                 return 1;
             }
-
-            
             return new Date(a.taskEnd).getTime() - new Date(b.taskEnd).getTime();
         });
 
@@ -91,4 +88,25 @@ export const markAsDone = (username: string, taskId: string) => {
 export const deleteTask = (username: string, taskId: string) => {
     const taskRef = ref(db, `users/${username}/done/${taskId}`);
     return remove(taskRef);
+};
+
+
+export const checkEndDates = (username: string, callback: (tasks: any[]) => void) => {
+    const tasksRef = ref(db, `users/${username}/toDo`);
+    onValue(tasksRef, (snapshot) => {
+        const tasks = snapshot.val();
+        const tasksList = Object.keys(tasks || {}).map(key => ({ ...tasks[key], id: key }));
+
+        const today = new Date();
+
+        const tasksToUpdate = tasksList.filter(task => {
+            const taskEndDate = new Date(task.taskEnd);
+            return taskEndDate.getFullYear() === today.getFullYear() &&
+                   taskEndDate.getMonth() === today.getMonth() &&
+                   taskEndDate.getDate() === today.getDate() &&
+                   !task.done;
+        });
+
+        callback(tasksToUpdate);
+    });
 };

@@ -15,7 +15,7 @@ type ToDoListProps = {
 
 };
 
-interface Task {
+export interface Task {
     id: string;
     taskName: string;
     taskContent: string;
