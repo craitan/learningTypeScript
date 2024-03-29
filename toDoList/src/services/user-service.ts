@@ -71,3 +71,9 @@ export const markAsDone = (username: string, taskId: string) => {
         remove(toDoTaskRef);
     });
 };
+
+
+export const deleteTask = (username: string, taskId: string) => {
+    const taskRef = ref(db, `users/${username}/done/${taskId}`);
+    return remove(taskRef);
+};

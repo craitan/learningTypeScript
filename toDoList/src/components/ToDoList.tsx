@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { markAsDone, watchUserDoneTasks, watchUserTasks } from "../services/user-service";
+import { deleteTask, markAsDone, watchUserDoneTasks, watchUserTasks } from "../services/user-service";
 import Table from "./Table";
 
 type ToDoListProps = {
@@ -38,18 +38,8 @@ const ToDoList = ({ userData }: ToDoListProps) => {
             return;
         }
         watchUserTasks(userData?.username, setToDoTasks)
-
-
-    }, [userData]);
-
-
-    useEffect(() => {
-        if (!userData) {
-            console.error('User data is not available');
-            return;
-        }
-
         watchUserDoneTasks(userData?.username, setDoneTasks)
+
 
     }, [userData]);
 
@@ -63,27 +53,50 @@ const ToDoList = ({ userData }: ToDoListProps) => {
         markAsDone(userData?.username, id);
     };
 
+
+    const handleDeleteTask = (id: string) => {
+
+        if (!userData) {
+            console.error('User data is not available');
+            return;
+        }
+        deleteTask(userData?.username, id);
+    };
+
+
+
+
+
     console.log(toDoTasks);
     return (
         <div className="flex w-full justify-center mt-5">
             <div className="border rounded-xl mx-5 w-1/2" id="to-do-tasks">
-                <div className="flex justify-center" id="to-do-title">
+                <div className="flex justify-center mt-5 mb-5" id="to-do-title">
                     <h1 className="text-2xl">To Do List</h1>
                 </div>
-                {toDoTasks.length === 0 ? (
-                    <p className="text-center text-xl mt-5">No tasks available</p>
-                ) : (
-                    <Table listOfTasks={toDoTasks} button="Remove" handleTaskFunction={handleRemoveTask} />
-                )}
+                <div className="m-5">
+                    {toDoTasks.length === 0 ? (
+                        <p className="text-center text-xl mt-5">No tasks available</p>
+                    ) : (
+                        <Table listOfTasks={toDoTasks} button="Done" handleTaskFunction={handleRemoveTask} />
+                    )}
+                </div>
+
             </div>
 
             <div className="divider lg:divider-horizontal">OR</div>
 
             <div className="border mx-5 w-1/2 rounded-xl" id="done-tasks">
-                <div className="flex justify-center" id="done-title">
+                <div className="flex justify-center mt-5 mb-5" id="done-title">
                     <h1 className="text-2xl">Done List </h1>
                 </div>
-                <Table listOfTasks={doneTasks} button="Undo" handleTaskFunction={handleRemoveTask} />
+                <div className="m-5">
+                    {toDoTasks.length === 0 ? (
+                        <p className="text-center text-xl mt-5">No tasks available</p>
+                    ) : (
+                        <Table listOfTasks={doneTasks} button="Done" handleTaskFunction={handleDeleteTask} />
+                    )}
+                </div>
             </div>
         </div>
     );
